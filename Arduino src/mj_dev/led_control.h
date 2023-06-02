@@ -1,5 +1,5 @@
 #include <Adafruit_NeoPixel.h>
-#include "config.h"
+// #include "config.h"
 
 Adafruit_NeoPixel pixels(NUMPIXELS, PIXELPIN, NEO_GRB + NEO_KHZ800);
 
