@@ -49,7 +49,7 @@ long lastMsgTime = 0;
 //   }
 // }
 
-
+//
 void setupWiFi(){
     IPAddress ip (192, 168, 0, 50); 
     IPAddress gateway (192, 168, 0, 1);
@@ -136,7 +136,6 @@ void mqtt_publish(){
 
 void setupMQTTCLient(){
     // WiFi.onEvent(WiFiEvent);
-    setupWiFi();
     client.setServer(mqtt_server, 1883);
     client.subscribe("maze/server/command");
     client.setCallback(callback);
