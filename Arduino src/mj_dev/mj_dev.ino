@@ -18,16 +18,16 @@ char _rcv_data[7] = {0,};
 
 void setup() {
 
-  servo1.attach(servo1Pin); 
-  servo2.attach(servo2Pin);
-
   Serial.begin(115200);
 
   // Wire.begin(Address); // change this part to socket
   // Wire.onReceive(receiveEvent);
-  setupLED();
+  setupWiFi();
   setupMQTTCLient();
+  setupLED();
   // setupWT32(); // imu sensor init
+  servo1.attach(servo1Pin); 
+  servo2.attach(servo2Pin);
 
   pinMode(buttonPin2, INPUT_PULLUP);
   pinMode(buttonPin3, INPUT_PULLUP);
@@ -134,4 +134,3 @@ void loop() {
     delay(10);
   }
 }
-
