@@ -1159,6 +1159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 819830388792837091}
   - component: {fileID: 819830388792837092}
+  - component: {fileID: 819830388792837094}
   m_Layer: 0
   m_Name: maze
   m_TagString: Untagged
@@ -1191,11 +1192,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12191150964283737}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58c9e42762b405b4eb5e1f86794dfe5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectionIP: 127.0.0.1
+  connectionPort: 25001
+--- !u!114 &819830388792837094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12191150964283737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78e0cfe780cb51468c88d847e102c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectionIP: 127.0.0.1
+  connectionPort: 25001
 --- !u!1 &1340591619856234866
 GameObject:
   m_ObjectHideFlags: 0
