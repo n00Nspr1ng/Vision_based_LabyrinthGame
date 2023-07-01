@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    
-
     public void OnClickButton()
     {
         Debug.Log("Reset button Clicked!");
