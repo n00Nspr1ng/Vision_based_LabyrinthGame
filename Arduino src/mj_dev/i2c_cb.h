@@ -31,7 +31,7 @@ void sendData(){
 
 void i2c_setup()
 {
-  Wire.begin(Address);
+//  Wire.begin(Address);
   Wire.onReceive(receiveEvent);
 //  Wire.onRequest(sendData);
 }

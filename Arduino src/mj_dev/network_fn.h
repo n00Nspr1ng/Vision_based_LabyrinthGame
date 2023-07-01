@@ -49,7 +49,7 @@ long lastMsgTime = 0;
 //   }
 // }
 
-//
+
 void setupWiFi(){
     IPAddress ip (192, 168, 0, 50); 
     IPAddress gateway (192, 168, 0, 1);
@@ -57,7 +57,7 @@ void setupWiFi(){
 
     WiFi.config (ip, gateway, subnet);
     WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
+//    WiFi.begin(ssid, password);
 
     // Wait for connection
     while (WiFi.status() != WL_CONNECTED) {
@@ -67,7 +67,7 @@ void setupWiFi(){
     
     Serial.println("");
     Serial.print("Connected to ");
-    Serial.println(ssid);
+//    Serial.println(ssid);
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
 }
@@ -86,7 +86,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   if ((char)payload[0] == 'A') {
     digitalWrite(BUILTIN_LED, LOW);
     for(int i; i<length; i++){
-      mqtt_sub[i] = (char)payload[i];
+//      mqtt_sub[i] = (char)payload[i];
     }
   } else {
     digitalWrite(BUILTIN_LED, HIGH);  // Turn the LED off by making the voltage HIGH
@@ -128,15 +128,16 @@ void mqtt_publish(){
     char packet[50];
     //mqtt publishing이 char형으로만 보낼 수 있기때문에 toCharArray로 변환한다.
     Serial.print("Publish message: ");
-    Serial.println(mqtt_pub);
-    client.publish("maze/arduino/reply", mqtt_pub);
+//    Serial.println(mqtt_pub);
+//    client.publish("maze/arduino/reply", mqtt_pub);
   }
   delay(5000); //5초 단위로 Publishing (조정가능)
 }
 
 void setupMQTTCLient(){
     // WiFi.onEvent(WiFiEvent);
-    client.setServer(mqtt_server, 1883);
+    setupWiFi();
+//    client.setServer(mqtt_server, 1883);
     client.subscribe("maze/server/command");
     client.setCallback(callback);
 }

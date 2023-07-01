@@ -1,6 +1,6 @@
 #include <Servo.h> //서보관련 라이브러리를 사용하기 위해
 #include "crc.h"
-#include "config.h"
+//#include "config.h"
 #include "i2c_cb.h"
 #include "network_fn.h"
 #include "wt32driver.h"
@@ -18,16 +18,17 @@ char _rcv_data[7] = {0,};
 
 void setup() {
 
+  servo1.attach(servo1Pin); 
+  
+  servo2.attach(servo2Pin);
+
   Serial.begin(115200);
 
   // Wire.begin(Address); // change this part to socket
   // Wire.onReceive(receiveEvent);
-  setupWiFi();
-  setupMQTTCLient();
   setupLED();
+  setupMQTTCLient();
   // setupWT32(); // imu sensor init
-  servo1.attach(servo1Pin); 
-  servo2.attach(servo2Pin);
 
   pinMode(buttonPin2, INPUT_PULLUP);
   pinMode(buttonPin3, INPUT_PULLUP);
@@ -41,10 +42,10 @@ void setup() {
 void loop() {
 
   // mqtt client conn
-  if (!client.connected()) {
-    reconnect();
-  }
-  client.loop();
+  //if (!client.connected()) {
+  //  reconnect();
+  //}
+  //client.loop();
 
   // need receiving buffer
   // with some pointer

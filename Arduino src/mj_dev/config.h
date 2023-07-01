@@ -1,12 +1,12 @@
-const int servo1Pin = 10; // 서보 핀
-const int servo2Pin = 9; // 서보 핀
-const int ledR = 11;
-const int ledB = 12;
+const int servo1Pin = D7; // 서보 핀
+const int servo2Pin = D8; // 서보 핀
+const int ledR = D5;
+const int ledB = D6;
 
-const int buttonPin2 = 2;
-const int buttonPin3 = 3;
-const int buttonPin4 = 4;
-const int buttonPin5 = 5;
+const int buttonPin2 = TX;
+const int buttonPin3 = D0;
+const int buttonPin4 = D1;
+const int buttonPin5 = D2;
 
 const int Address = 0x50;
 
