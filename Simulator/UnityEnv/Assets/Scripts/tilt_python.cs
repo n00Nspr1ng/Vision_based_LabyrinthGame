@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-public class tilt : MonoBehaviour
+public class tilt_python : MonoBehaviour
 {
     private Vector3 startPos;
     private Vector3 currentRot;
@@ -24,6 +24,9 @@ public class tilt : MonoBehaviour
     TcpListener listener;
     TcpClient client;
     Vector3 receivedPos = Vector3.zero;
+    // string receivedCnt = "";
+    string cntReceived = "";
+    int c_idx = 0;
     bool running;
 
     // Start is called before the first frame update
@@ -37,7 +40,7 @@ public class tilt : MonoBehaviour
         mThread = new Thread(ts);
         mThread.Start();        
         //RLinput = true;
-        test = false;
+        //test = true;
     }
 
     // Update is called once per frame
@@ -45,38 +48,38 @@ public class tilt : MonoBehaviour
     {   currentRot = GetComponent<Transform>().eulerAngles;
         
 
-        if ((Input.GetAxis("Horizontal") > .2) || Input.GetKeyDown(KeyCode.D))
+        if ((Input.GetAxis("Horizontal") > .2) || Input.GetKeyDown(KeyCode.D) || receivedPos[2] < -0.01)
         {
             if(currentRot.z <= (360-tilt_thresh) && currentRot.z >= 180){}
-            else transform.Rotate(0,0,-0.1f);
+            else transform.Rotate(receivedPos);
             if(debug==true){
                 Debug.Log("Right button clicked");
                 Debug.Log(currentRot.z);
             }
             
         }
-        else if ((Input.GetAxis("Horizontal") < -.2) || Input.GetKeyDown(KeyCode.A))
+        else if ((Input.GetAxis("Horizontal") < -.2) || Input.GetKeyDown(KeyCode.A) || receivedPos[2] > 0.01)
         {
             if(currentRot.z >= tilt_thresh && currentRot.z <= 180){}
-            else transform.Rotate(0,0,0.1f);
+            else transform.Rotate(receivedPos);
             if(debug==true){
                 Debug.Log("Left button clicked");
                 Debug.Log(currentRot.z);
             }
         }
-        if ((Input.GetAxis("Vertical") > .2)|| Input.GetKeyDown(KeyCode.W) || test)
+        if ((Input.GetAxis("Vertical") > .2)|| Input.GetKeyDown(KeyCode.W) || receivedPos[0] > 0.01)
         {
             if(currentRot.x >= tilt_thresh && currentRot.x <= 180){}
-            else  transform.Rotate(0.1f,0,0); //up down is flipped
+            else  transform.Rotate(receivedPos);//0.1f,0,0); //up down is flipped
             if(debug==true){
                 Debug.Log("Up button clicked");
                 Debug.Log(currentRot.x);
             }
         }
-        else if ((Input.GetAxis("Vertical") < -.2)|| Input.GetKeyDown(KeyCode.S))
+        else if ((Input.GetAxis("Vertical") < -.2)|| Input.GetKeyDown(KeyCode.S) || receivedPos[0] < -0.01)
         {
             if(currentRot.x <= (360-tilt_thresh) && currentRot.x >= 180){}
-            else transform.Rotate(-0.1f,0,0);
+            else transform.Rotate(receivedPos);
             if(debug==true){
                 Debug.Log("Down button clicked");
                 Debug.Log(currentRot.x);
@@ -112,11 +115,26 @@ public class tilt : MonoBehaviour
         if (dataReceived != null)
         {
             //---Using received data---
-            receivedPos = StringToVector3(dataReceived); //<-- assigning receivedPos value from Python
-            print("received pos data, and moved the Cube!");
+            // Debug.Log(dataReceived);
+            c_idx = dataReceived.IndexOf("c");
+            // Debug.Log(c_idx);
+            cntReceived = dataReceived[(c_idx+1)..];
+            dataReceived = dataReceived[..c_idx];
+            Debug.Log(cntReceived);
+            // if(int.Parse(cntReceived.Substring(1,1)) == int.Parse("c")){
+            //     print(1);
+            //     receivedCnt = dataReceived[1..];
+            //     Debug.Log(receivedCnt);
+            // }
+            // else{
+                //print(dataReceived[0]);
+                receivedPos = StringToVector3(dataReceived); //<-- assigning receivedPos value from Python
+            // }
+            // print("received pos data, and moved the Cube!");
 
             //---Sending Data to Host----
-            byte[] myWriteBuffer = Encoding.ASCII.GetBytes("Hey I got your message Python! Do You see this massage?"); //Converting string to byte data
+            byte[] myWriteBuffer = Encoding.ASCII.GetBytes(cntReceived); //Converting string to byte data
+            //byte[] myWriteBuffer = Encoding.ASCII.GetBytes("Hey I got your message Python! Do You see this massage?"); //Converting string to byte data
             nwStream.Write(myWriteBuffer, 0, myWriteBuffer.Length); //Sending the data in Bytes to Python
         }
     }
