@@ -1,15 +1,15 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-const int servo1Pin = D7; // 서보 핀
-const int servo2Pin = D8; // 서보 핀
-const int ledR = D5;
+const int servo1Pin = D3; // 서보 핀
+const int servo2Pin = D5; // 서보 핀
+const int ledR = D7;
 const int ledB = D6;
-const int buttonPin1 = D3; // 검정 스위치, on/off
-const int buttonPin2 = D2; // 노란 스위치
+const int buttonPin1 = D8; // 검정 스위치, on/off
+const int buttonPin2 = D4; // 노란 스위치
 
 #define NUMPIXELS 60
-#define PIXELPIN D4
+#define PIXELPIN D8
 
 //const int buttonPin2 = TX;
 //const int buttonPin3 = D0;

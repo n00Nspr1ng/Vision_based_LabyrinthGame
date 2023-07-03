@@ -12,12 +12,14 @@ void loop_manual()
       Serial.println("ON");
       digitalWrite(ledR,LOW);
       digitalWrite(ledB,HIGH);
+      delay(300);
       break;
     }
   }
 
   while(state==0)
   { 
+    
     if(Serial.available()){
       a = Serial.parseInt();
       b = Serial.parseInt();
@@ -25,13 +27,15 @@ void loop_manual()
       Serial.print(a); 
       Serial.print("    b = ");
       Serial.println(b);
+      servo1.write(a);
+      servo2.write(b);
       }
    
     
     a=servo1_degree;
     b=servo2_degree;
-    servo1.write(a);
-    servo2.write(b);
+//    servo1.write(a);
+//    servo2.write(b);
 
 //    int X = analogRead(0);
 //    int Y = analogRead(1);
@@ -75,7 +79,7 @@ void loop_manual()
       servo1_degree = 90;
       servo2_degree = 90;
       Serial.println("RESET");
-
+      delay(300);
     }
 
     if (digitalRead(buttonPin1) == LOW) {
@@ -83,7 +87,7 @@ void loop_manual()
       Serial.println("OFF");
       digitalWrite(ledR,HIGH);
       digitalWrite(ledB,LOW);
-      delay(100);
+      delay(300);
       break;
     }
 //    if (buttonValue5 == LOW) {
